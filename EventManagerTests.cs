@@ -47,5 +47,11 @@ namespace EventManagementTests
             var events = _eventManager.GetAllEvents(); // Отримуємо список заходів.
             Assert.DoesNotContain(eventInstance, events); // Перевіряємо, що захід видалено.
         }
+        [Fact]
+        public void RemoveEvent_ShouldThrowException_WhenEventDoesNotExist() // Тест для перевірки видалення неіснуючого заходу.
+        {
+            var exception = Assert.Throws<KeyNotFoundException>(() => _eventManager.RemoveEvent("NonExistentEvent")); // Перевіряємо виключення.
+            Assert.Equal("Захід із заданою назвою не знайдено.", exception.Message); // Перевіряємо повідомлення виключення.
+        }
     }
 }
